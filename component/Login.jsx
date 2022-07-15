@@ -8,9 +8,11 @@ function Login() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const login = (event) => {
     event.preventDefault();
+    setLoading(true);
 
     userbase
       .signIn({ username, password, rememberMe: "session" })
@@ -19,6 +21,9 @@ function Login() {
       })
       .catch((e) => {
         setError(e.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -26,29 +31,35 @@ function Login() {
     <>
       <h2>Login</h2>
       <form id="signin-form" onSubmit={login}>
-        <label>
-          <input
-            type="text"
-            required
-            placeholder="Username"
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
-        </label>
-        <label>
-          <input
-            type="password"
-            required
-            placeholder="Password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </label>
-        <input type="submit" value="Login" />
-        <Error message={error} />
+        <div className="mb-3">
+          <label>
+            <input
+              type="text"
+              className="form-control"
+              required
+              placeholder="Username"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
+          </label>
+        </div>
+        <div className="mb-3">
+          <label>
+            <input
+              type="password"
+              className="form-control"
+              required
+              placeholder="Password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </label>
+        </div>
+        <input type="submit" value="Login" className="btn btn-primary" />
       </form>
+      <Error message={error} />
     </>
   );
 }

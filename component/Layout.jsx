@@ -17,8 +17,18 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <Login />
-      <Register />
+      <div className="container">
+        <div className="row">
+          <div className="row">
+            <div className="col mt-3">
+              <Login></Login>
+            </div>
+            <div className="col mt-3">
+              <Register></Register>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { UserContext } from "../component/Contexts";
 import Layout from "../component/Layout";
+import "../styles/_base.scss";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
