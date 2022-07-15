@@ -9,14 +9,15 @@ export default function Layout({ children }) {
   if (user) {
     return (
       <>
-        <Nav />
-        <main>{children}</main>
+        <Nav user={user} />
+        <main className="container mt-3">{children}</main>
       </>
     );
   }
 
   return (
     <>
+      <Nav user={user} />
       <div className="container">
         <div className="row">
           <div className="row">
