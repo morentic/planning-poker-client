@@ -1,11 +1,13 @@
 import { useState } from "react";
 import userbase from "userbase-js";
 import { useRouter } from "next/router";
+import Error from "./Error";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [error, setError] = useState("");
 
   const login = (event) => {
     event.preventDefault();
@@ -16,7 +18,7 @@ function Login() {
         router.push("/");
       })
       .catch((e) => {
-        console.log(e);
+        setError(e.message);
       });
   };
 
@@ -45,6 +47,7 @@ function Login() {
           />
         </label>
         <input type="submit" value="Login" />
+        <Error message={error} />
       </form>
     </>
   );

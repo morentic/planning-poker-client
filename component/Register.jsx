@@ -1,15 +1,16 @@
 import { useState } from "react";
 import userbase from "userbase-js";
 import { useRouter } from "next/router";
+import Error from "./Error";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [error, setError] = useState("");
 
   const register = (event) => {
     event.preventDefault();
-    console.log("register");
 
     userbase
       .signUp({ username, password, rememberMe: "session" })
@@ -17,7 +18,7 @@ function Register() {
         router.push("/");
       })
       .catch((e) => {
-        console.log(e);
+        setError(e.message);
       });
   };
 
@@ -47,6 +48,7 @@ function Register() {
         </label>
         <input type="submit" value="Create new account" />
       </form>
+      <Error message={error} />
     </>
   );
 }
