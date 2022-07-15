@@ -2,15 +2,19 @@ import { useState } from "react";
 import userbase from "userbase-js";
 import { useRouter } from "next/router";
 import Error from "./Error";
+import SubmitButton from "./SubmitButton";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const register = (event) => {
     event.preventDefault();
+
+    setLoading(true);
 
     userbase
       .signUp({ username, password, rememberMe: "session" })
@@ -18,6 +22,7 @@ function Register() {
         router.push("/");
       })
       .catch((e) => {
+        setLoading(false);
         setError(e.message);
       });
   };
@@ -27,36 +32,28 @@ function Register() {
       <h2>Register</h2>
       <form id="signup-form" onSubmit={register}>
         <div className="mb-3">
-          <label>
-            <input
-              type="text"
-              className="form-control"
-              required
-              placeholder="Username"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-          </label>
+          <input
+            type="text"
+            className="form-control"
+            required
+            placeholder="Username"
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
         </div>
         <div className="mb-3">
-          <label>
-            <input
-              type="password"
-              className="form-control"
-              required
-              placeholder="Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-          </label>
+          <input
+            type="password"
+            className="form-control"
+            required
+            placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
         </div>
-        <input
-          type="submit"
-          value="Create new account"
-          className="btn btn-primary"
-        />
+        <SubmitButton name="Register" loading={loading} />
       </form>
       <Error message={error} />
     </>

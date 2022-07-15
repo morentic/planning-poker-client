@@ -2,6 +2,7 @@ import { useState } from "react";
 import userbase from "userbase-js";
 import { useRouter } from "next/router";
 import Error from "./Error";
+import SubmitButton from "./SubmitButton";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -21,8 +22,6 @@ function Login() {
       })
       .catch((e) => {
         setError(e.message);
-      })
-      .finally(() => {
         setLoading(false);
       });
   };
@@ -32,32 +31,30 @@ function Login() {
       <h2>Login</h2>
       <form id="signin-form" onSubmit={login}>
         <div className="mb-3">
-          <label>
-            <input
-              type="text"
-              className="form-control"
-              required
-              placeholder="Username"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-          </label>
+          <input
+            type="text"
+            className="form-control"
+            required
+            placeholder="Username"
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            disabled={loading}
+          />
         </div>
         <div className="mb-3">
-          <label>
-            <input
-              type="password"
-              className="form-control"
-              required
-              placeholder="Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-          </label>
+          <input
+            type="password"
+            className="form-control"
+            required
+            placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            disabled={loading}
+          />
         </div>
-        <input type="submit" value="Login" className="btn btn-primary" />
+        <SubmitButton name="Login" loading={loading} />
       </form>
       <Error message={error} />
     </>
