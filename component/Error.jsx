@@ -3,7 +3,9 @@ function Error({ message }) {
 
   return (
     <>
-      <p>{message}</p>
+      <div className="alert alert-danger mt-3" role="alert">
+        {message}
+      </div>
     </>
   );
 }
