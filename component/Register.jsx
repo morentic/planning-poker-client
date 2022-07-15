@@ -40,6 +40,7 @@ function Register() {
             onChange={(e) => {
               setUsername(e.target.value);
             }}
+            disabled={loading}
           />
         </div>
         <div className="mb-3">
@@ -51,6 +52,7 @@ function Register() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            disabled={loading}
           />
         </div>
         <SubmitButton name="Register" loading={loading} />
